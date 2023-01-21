@@ -12,6 +12,10 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        Schedule schedule = Schedule.getDummySchedule();
+        boolean done = schedule.isDayComplete();
+        schedule.eventList.get(0).completion = true;
+        schedule.eventList.get(1).completion = true;
+        boolean done2 = schedule.isDayComplete();
     }
 }

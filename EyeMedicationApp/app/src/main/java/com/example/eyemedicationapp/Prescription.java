@@ -1,22 +1,20 @@
 package com.example.eyemedicationapp;
-
-
 import java.time.LocalDateTime;
-
 public class Prescription {
     String name;
     String type;
     String capColor;
     String eye;
     double dose;
-
     int frequency;
     //0 will stand for ongoing
     int duration;
     int taper;
     Event event;
     LocalDateTime startDate;
-    public Prescription(String newName, String newType, String newColor,  String newEye, double newDose, int newFreq, int newDuration, int newTaper, long newDateTime, LocalDateTime newDate){
+    public Prescription(String newName, String newType, String newColor,  String newEye,
+                        double newDose, int newFreq, int newDuration, int newTaper,
+                        LocalDateTime newDateTime){
         this.name = newName;
         this.type = newType;
         this.capColor = newColor;
@@ -25,8 +23,7 @@ public class Prescription {
         this.frequency = newFreq; //how often
         this.duration = newDuration; //number of days
         this.taper = newTaper;
-        event = new Event(newDateTime);
-        this.startDate = newDate;
+        this.startDate = newDateTime;
     }
 
     public String getName() {
