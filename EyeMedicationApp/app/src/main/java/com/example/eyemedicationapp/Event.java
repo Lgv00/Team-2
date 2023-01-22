@@ -1,19 +1,22 @@
 package com.example.eyemedicationapp;
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-import java.sql.Array;
 import java.time.LocalDateTime;
-
+@Entity
 public class Event {
     boolean completion;
     LocalDateTime dateTime;
-    Prescription prescription;
+    @PrimaryKey(autoGenerate = true)
+    long id;
+    long prescriptionID;
 
 
-    public Event(Prescription p) {
-        this.prescription = p;
-        this.completion = false;
-    }
+//    public Event(Prescription p) {
+//        this.prescription = p;
+//        this.completion = false;
+//    }
 
     public void toggleCompletion() {
         completion = !completion;
@@ -106,9 +109,9 @@ public class Event {
         }
         return new int []{0};
     }
-    @NonNull
-    public String toString(){
-        return this.prescription.name + " " + this.dateTime.toString();
-    }
+//    @NonNull
+//    public String toString(){
+//        return this.prescription.name + " " + this.dateTime.toString();
+//    }
 
 }

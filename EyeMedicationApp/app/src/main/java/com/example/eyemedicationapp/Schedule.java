@@ -8,26 +8,26 @@ import java.util.HashSet;
 public class Schedule{
     ArrayList<Prescription> prescriptionList;
     public ArrayList<Event> eventList = new ArrayList<>();
-    HashSet <LocalDateTime> usedTimes = new HashSet<>();
     int dropBuffer = 5;
     public Schedule(){
         prescriptionList = new ArrayList<>();
     }
 
-   public void addPrescription(Prescription a){
+   public void addPrescription(Prescription a, AppDatabase db){
         prescriptionList.add(a);
         for(int j = 0; j < a.duration; j++) {
             LocalDateTime current = a.startDate.plusDays(j);
             int [] hourOffsets = Event.defaultAlarm(a.frequency);
             for (int hourOffset : hourOffsets) {
-                Event event = new Event(a);
+                Event event = new Event();
                 LocalDateTime currentEventTime = current.plusMinutes(hourOffset);
-                while(usedTimes.contains(currentEventTime)){
+                while(db.eventDAO().getEventByDate(currentEventTime) != null){
                     currentEventTime = currentEventTime.plusMinutes(dropBuffer);
                 }
-                usedTimes.add(currentEventTime);
+                event.completion = false;
+                event.prescriptionID = a.id;
                 event.setDateTime(currentEventTime);
-                eventList.add(event);
+                db.eventDAO().insertAll(event);
             }
         }
         eventList.sort(new Comparator<Event>() {
@@ -55,11 +55,5 @@ public class Schedule{
         dropBuffer = newNum;
     }
 
-    public static Schedule getDummySchedule(){
-        Schedule s = new Schedule();
-        s.addPrescription(new Prescription( "Acular", "Eyedrop", "Grey", "Both", 0.0, 2, 3, 0,LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)));
-        s.addPrescription(new Prescription("Atropine", "Eyedrop", "Red", "Both", 0.0, 3, 2, 0,LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.DAYS)));
-        return s;
-    }
 
 }

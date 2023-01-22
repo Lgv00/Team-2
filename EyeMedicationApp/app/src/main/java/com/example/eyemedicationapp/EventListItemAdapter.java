@@ -9,13 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class Event_List_Item_Adapter extends ArrayAdapter<Event> {
+public class EventListItemAdapter extends ArrayAdapter<EventPrescription> {
 
-    public Event_List_Item_Adapter(@NonNull Context context, @NonNull List<Event> objects) {
+    public EventListItemAdapter(@NonNull Context context, @NonNull List<EventPrescription> objects) {
         super(context, R.layout.layout_event_list_item, objects);
     }
     @Override
@@ -23,12 +21,12 @@ public class Event_List_Item_Adapter extends ArrayAdapter<Event> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_event_list_item,parent,false);
         }
-        Event e = getItem(position);
+        EventPrescription e = getItem(position);
         TextView name = (TextView) convertView.findViewById(R.id.event_item_name);
-        name.setText(e.prescription.name);
+        name.setText(e.prescriptionName);
 
         TextView eye = (TextView) convertView.findViewById(R.id.eye_type);
-        eye.setText(e.prescription.eye);
+        eye.setText(e.targetEye);
 
         TextView time = (TextView) convertView.findViewById(R.id.event_item_time);
         time.setText(e.dateTime.toString());

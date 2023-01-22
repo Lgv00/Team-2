@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
-import com.example.eyemedicationapp.Event_List_Item_Adapter;
-import com.example.eyemedicationapp.Schedule;
+import com.example.eyemedicationapp.AppDatabase;
+import com.example.eyemedicationapp.Event;
+import com.example.eyemedicationapp.EventListItemAdapter;
+import com.example.eyemedicationapp.Prescription;
 import com.example.eyemedicationapp.databinding.FragmentHomeBinding;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -28,12 +32,21 @@ public class HomeFragment extends Fragment {
 
 
 
-        Schedule s = Schedule.getDummySchedule();
-        Event_List_Item_Adapter adapter = new Event_List_Item_Adapter(getContext(),s.eventList);
-        binding.eventListView.setAdapter(adapter);
-
         return root;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        AppDatabase db = Room.databaseBuilder(getContext(),
+                AppDatabase.class, "droppy4").allowMainThreadQueries().build();
+        List<Prescription> ps = db.prescriptionDAO().getAll();
+        List<Event> es = db.eventDAO().getAll();
+        EventListItemAdapter adapter = new EventListItemAdapter(getContext(),db.eventPrescriptionDao().loadEventsAndPrescriptions());
+        binding.eventListView.setAdapter(adapter);
+        db.close();
     }
 
     @Override
