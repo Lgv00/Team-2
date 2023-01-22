@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class Schedule{
     ArrayList<Prescription> prescriptionList;
-    ArrayList<Event> eventList = new ArrayList<>();
+    public ArrayList<Event> eventList = new ArrayList<>();
     HashSet <LocalDateTime> usedTimes = new HashSet<>();
     int dropBuffer = 5;
     public Schedule(){
