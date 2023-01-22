@@ -46,6 +46,7 @@ public class AddActivity extends AppCompatActivity {
         dateButton.setText(getTodayDate());
         currDate = getTodayDate();
         Button prescriptionButton = findViewById(R.id.addPrescription);
+        Button backButton = findViewById(R.id.backButton);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         autoCompleteTextView2 = findViewById(R.id.eye_complete_txt);
@@ -63,6 +64,12 @@ public class AddActivity extends AppCompatActivity {
 
 
                 setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
                 finish();
             }
         });
