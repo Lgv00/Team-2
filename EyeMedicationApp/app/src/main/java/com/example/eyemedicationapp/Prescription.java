@@ -1,30 +1,37 @@
 package com.example.eyemedicationapp;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDateTime;
+@Entity
 public class Prescription {
+    @PrimaryKey(autoGenerate = true)
+    long id;
+    @ColumnInfo(name = "Name")
     String name;
+    @ColumnInfo(name = "Type")
     String type;
+    @ColumnInfo(name = "Cap_color")
     String capColor;
+    @ColumnInfo(name = "Eye")
     String eye;
+    @ColumnInfo(name = "Dose")
     double dose;
+    @ColumnInfo(name = "Frequency")
     int frequency;
+    @ColumnInfo(name = "Duration")
     //0 will stand for ongoing
     int duration;
+    @ColumnInfo(name = "Taper")
     int taper;
-    Event event;
+    //@ColumnInfo(name = "Completion") @ColumnInfo(name = "Date_Time")
+    //Event event;
+
+    //@ColumnInfo(name = "Start_time")
     LocalDateTime startDate;
-    public Prescription(String newName, String newType, String newColor,  String newEye,
-                        double newDose, int newFreq, int newDuration, int newTaper,
-                        LocalDateTime newDateTime){
-        this.name = newName;
-        this.type = newType;
-        this.capColor = newColor;
-        this.eye = newEye;
-        this.dose = newDose;
-        this.frequency = newFreq; //how often
-        this.duration = newDuration; //number of days
-        this.taper = newTaper;
-        this.startDate = newDateTime;
-    }
+
+    public Prescription(){}
 
     public String getName() {
         return name;
@@ -78,13 +85,13 @@ public class Prescription {
         return duration;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
+//    public Event getEvent() {
+//        return event;
+//    }
+//
+//    public void setEvent(Event event) {
+//        this.event = event;
+//    }
 
     public void setDuration(int duration) {
         this.duration = duration;
